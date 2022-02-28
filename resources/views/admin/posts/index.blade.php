@@ -1,6 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
+@if (session('status'))
+    <div class="alert alert-success">
+        {{ session('status')}}
+    </div>
+@endif
     <div class="container">
         <div class="row">
             <h1 class="pt-3">Admin Post</h1>

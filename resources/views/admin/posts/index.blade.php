@@ -14,7 +14,30 @@
             </div>
         </div>
         <div class="row">
-            <div class="col">
+            <div class="col-2">
+                 <nav id="sidebarMenu" class="d-md-block bg-light sidebar collapse">
+                        <div class="position-sticky pt-3">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">
+                                    <a class="nav-link" aria-current="page" href="#">
+                                        <i class="bi bi-house mx-2"></i>Dashboard
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">
+                                        <i class="bi bi-files mx-2"></i>Posts
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">
+                                        <i class="bi bi-folder-symlink mx-2"></i>Categories
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+            </div>
+            <div class="col-10">
                 <table class="table table-primary table-hover table-bordered border-dark">
                     <thead>
                         <tr class="table-danger border-dark">

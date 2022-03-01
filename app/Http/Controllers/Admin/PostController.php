@@ -46,7 +46,7 @@ class PostController extends Controller
         $data = $request->all();
         $post = new Post();
         $post->fill($data);
-        $post->slug = $post->title . '-' . rand(1, 100) . '-' . rand(1, 200);
+        $post->slug = $post->createSlug($data['title']);
         $post->save();
         return redirect()->route('admin.posts.show', $post);
     }

@@ -49,22 +49,35 @@
                                 </li>
                             @endif
                         @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            <li class="nav-item">
+                                {{-- <form class="d-block" action="{{ route('logout') }}" method="POST">
+                                    @csrf
+                                    @method('POST')
+                                     <input type="submit" class="btn btn-light" value="Logout">
+                                </form> --}}
+                                <a id="navbarDropdown" class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
                                 </a>
 
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                {{-- <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
-                                    </a>
+                                    </a> --}}
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    {{-- <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
-                                    </form>
-                                </div>
+                                        <input type="submit" class="btn btn-light" value="Logout">
+                                    </form> --}}
+                                {{-- </div> --}}
+                            </li>
+                            <li class="nav-item mx-5">
+                                <form class="" action="{{ route('logout') }}" method="POST">
+                                    @csrf
+                                    @method('POST')
+                                     <input type="submit" class="btn btn-primary" value="Logout">
+                                </form>
                             </li>
                         @endguest
                     </ul>

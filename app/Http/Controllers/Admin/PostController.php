@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Support\Facades\Auth;
 use App\Model\Post;
+use App\Model\Category;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -38,7 +39,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('admin.posts.create');
+        $categories = Category::all();
+        return view('admin.posts.create', ['categories' => $categories]);
     }
 
     /**
@@ -51,6 +53,7 @@ class PostController extends Controller
     {
         $request->validate($this->validator);
         $data = $request->all();
+        $data['user_id'] = Auth::user()->id;
         $post = new Post();
         $post->fill($data);
         $post->slug = $post->createSlug($data['title']);
@@ -77,7 +80,8 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('admin.posts.edit', compact('post'));
+        $categories = Category::all();
+        return view('admin.posts.edit', ['post' => $post, 'categories' => $categories]);
     }
 
     /**
@@ -91,6 +95,17 @@ class PostController extends Controller
     {
         $request->validate($this->validator);
         $data = $request->all();
+
+        if ($data['title'] != $post->title) {
+            $post->title = $data['title'];
+            $post->slug = $post->createSlug($data['title']);
+        }
+        if ($data['content'] != $post->content) {
+            $post->content = $data['content'];
+        }
+        if ($data['category_id'] != $post->category_id) {
+            $post->category_id = $data['category_id'];
+        }
         $post->update($data);
         return redirect()->route('admin.posts.show', $post);
     }

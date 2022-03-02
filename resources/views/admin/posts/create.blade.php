@@ -2,8 +2,8 @@
 
 @section('content')
      <div class="container">
-      <a class="btn btn-danger my-3" href="{{ route('admin.posts.index')}}">Home</a>
-        <h1 class="my-3">Aggiungi nuovo Post:</h1>
+      {{-- <a class="btn btn-danger my-3" href="{{ route('admin.posts.index')}}">Home</a> --}}
+        <h1>Aggiungi nuovo Post:</h1>
         <div class="row">
             <div class="col py-3">
                 <form action="{{ route('admin.posts.store') }}" method="post">
@@ -23,7 +23,7 @@
                       <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
-                <a href="{{ url()->previous()}}" type="submit" class="btn btn-primary">Previous</a>
+                {{-- <a href="{{ url()->previous()}}" type="submit" class="btn btn-primary">Previous</a> --}}
                 <button type="submit" class="btn btn-danger">Save</button>
 
           </form>

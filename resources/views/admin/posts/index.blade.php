@@ -23,17 +23,24 @@
                             <td>{{ $post->slug }} </td>
                             <td><a class="btn btn-primary" href="{{ route('admin.posts.show', $post) }}">View</a></td>
                             <td>
-                                 @if (Auth::user()->id === $post->user_id)
+                                @if (Auth::user()->id === $post->user_id)
                                     <a class="btn btn-primary" href="{{ route('admin.posts.edit', $post) }}">Edit</a>
-                                 @endif
+                                @else
+                                    <a class="btn btn-primary disabled" href="{{ route('admin.posts.edit', $post) }}">Edit</a>
+                                @endif
                             </td>
                             <td>
                                 @if (Auth::user()->id === $post->user_id)
-                                    <form action="{{ route('admin.posts.destroy', $post->id)}}" method="post">
+                                    <form action="{{ route('admin.posts.destroy', $post)}}" method="post">
                                     @csrf
                                     @method('DELETE')
                                     <input class="btn btn-danger" type="submit" value="Delete">
-                                    </form>
+                                </form>
+                                @else
+                                    <form action="{{ route('admin.posts.destroy', $post)}}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <input class="btn btn-danger disabled" type="submit" value="Delete">
                                 @endif
                         </td>
                         </tr>

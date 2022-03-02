@@ -18,12 +18,12 @@ class Category extends Model
     {
         $slug = Str::slug($title, '-');
 
-        $oldPost = Post::where('slug', $slug)->first();
+        $oldCategory = Category::where('slug', $slug)->first();
 
         $counter = 0;
-        while ($oldPost) {
+        while ($oldCategory) {
             $newSlug = $slug . '-' . $counter;
-            $oldPost = Post::where('slug', $newSlug)->first();
+            $oldCategory = Category::where('slug', $newSlug)->first();
             $counter++;
         }
 

@@ -51,27 +51,9 @@
                             @endif
                         @else
                             <li class="nav-item">
-                                {{-- <form class="d-block" action="{{ route('logout') }}" method="POST">
-                                    @csrf
-                                    @method('POST')
-                                     <input type="submit" class="btn btn-light" value="Logout">
-                                </form> --}}
                                 <a id="navbarDropdown" class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
                                 </a>
-
-                                {{-- <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a> --}}
-
-                                    {{-- <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                        <input type="submit" class="btn btn-light" value="Logout">
-                                    </form> --}}
-                                {{-- </div> --}}
                             </li>
                             <li class="nav-item mx-5">
                                 <form class="" action="{{ route('logout') }}" method="POST">
@@ -85,10 +67,46 @@
                 </div>
             </div>
         </nav>
-
-        <main class="py-4">
-            @yield('content')
-        </main>
+        <div class="container py-5">
+            <div class="row">
+                <div class="col-2">
+                        <div class="row">
+                                <div class="col">
+                                    <a href="{{ route('admin.posts.create') }}" class="link-primary mb-5">Aggiungi Post</a>
+                                </div>
+                        </div>
+                            <nav id="sidebarMenu" class="d-md-block bg-light sidebar collapse">
+                                    <div class="position-sticky pt-3">
+                                        <ul class="nav flex-column">
+                                            <li class="nav-item">
+                                                <a class="nav-link" aria-current="page" href="{{ route('admin.posts.index')}}">
+                                                    <i class="bi bi-house mx-2"></i>Dashboard
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="{{ route('admin.posts.index')}}">
+                                                    <i class="bi bi-files mx-2"></i>All Posts
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="{{ route('admin.posts.user')}}">
+                                                    <i class="bi bi-files mx-2"></i>My Posts
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="#">
+                                                    <i class="bi bi-folder-symlink mx-2"></i>Categories
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </nav>
+                </div>
+                <div class="col-10">
+                    @yield('content')
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>

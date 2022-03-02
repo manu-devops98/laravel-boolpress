@@ -106,7 +106,7 @@ class PostController extends Controller
         if ($data['category_id'] != $post->category_id) {
             $post->category_id = $data['category_id'];
         }
-        $post->update($data);
+        $post->update();
         return redirect()->route('admin.posts.show', $post);
     }
 

@@ -72,7 +72,14 @@
                 <div class="col-2">
                         <div class="row">
                                 <div class="col">
-                                    <a href="{{ route('admin.posts.create') }}" class="link-primary mb-5">Aggiungi Post</a>
+                                    <ul class="list-unstyled">
+                                        <li>
+                                            <a href="{{ route('admin.posts.create') }}" class="link-primary mb-5">Aggiungi Post</a>
+                                        </li>
+                                        <li>
+                                             <a href="{{ route('admin.categories.create') }}" class="link-primary mb-5">Aggiungi Categoria</a>
+                                        </li>
+                                    </ul>
                                 </div>
                         </div>
                             <nav id="sidebarMenu" class="d-md-block bg-light sidebar collapse">

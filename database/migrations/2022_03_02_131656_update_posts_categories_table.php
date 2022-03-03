@@ -19,7 +19,7 @@ class UpdatePostsCategoriesTable extends Migration
                 ->nullable();
             $table->foreign('category_id')
                 ->references('id')
-                ->on('categories');
+                ->on('categories')->onDelete('cascade');
         });
     }
 

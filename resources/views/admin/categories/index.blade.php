@@ -6,6 +6,7 @@
         {{ session('status')}}
     </div>
 @endif
+<h1>Categories:</h1>
                 <table class="table table-striped table-info table-hover table-bordered border-dark">
                     <thead>
                         <tr class="table-default border-dark">

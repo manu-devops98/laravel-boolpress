@@ -12,6 +12,7 @@
                         <tr class="table-default border-dark">
                             <th scope="col">Title</th>
                             <th scope="col">Authors</th>
+                            <th scope="col">Tags</th>
                             <th scope="col">Slug</th>
                             <th colspan="3" scope="col">Actions</th>
                         </tr>
@@ -21,6 +22,11 @@
                         <tr>
                             <td>{{ $post->title }}</td>
                             <td>{{ $post->content }}</td>
+                            <td>
+                                @foreach ($post->tags()->get() as $tag)
+                                    {{ $tag->name }}
+                                @endforeach
+                            </td>
                             <td>{{ $post->slug }} </td>
                             <td><a class="btn btn-primary" href="{{ route('admin.posts.show', $post) }}">View</a></td>
                             <td>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Support\Facades\Auth;
 use App\Model\Post;
 use App\Model\Category;
+use App\Model\Tag;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -13,7 +14,8 @@ class PostController extends Controller
     public $validator = [
         'title' => 'required|max: 255',
         'content' => 'required',
-        'category_id' => 'exists:App\Model\Category,id'
+        'category_id' => 'exists:App\Model\Category,id',
+        'tags.*' => 'nullable|exists:App\Model\Tag,id',
     ];
 
     /**
@@ -41,7 +43,8 @@ class PostController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view('admin.posts.create', ['categories' => $categories]);
+        $tags = Tag::all();
+        return view('admin.posts.create', ['categories' => $categories, 'tags' => $tags]);
     }
 
     /**
@@ -55,10 +58,19 @@ class PostController extends Controller
         $request->validate($this->validator);
         $data = $request->all();
         $data['user_id'] = Auth::user()->id;
+        // dd($data);
         $post = new Post();
         $post->fill($data);
         $post->slug = $post->createSlug($data['title']);
+        $post->user_id = $data['user_id'];
+        $post->category_id = $data['category_id'];
         $post->save();
+        // dd($post);
+
+        if (!empty($data['tags'])) {
+            $post->tags()->attach($data['tags']);
+        }
+
         return redirect()->route('admin.posts.show', $post);
     }
 
@@ -82,7 +94,8 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         $categories = Category::all();
-        return view('admin.posts.edit', ['post' => $post, 'categories' => $categories]);
+        $tags = Tag::all();
+        return view('admin.posts.edit', ['post' => $post, 'categories' => $categories, 'tags' => $tags]);
     }
 
     /**
@@ -108,6 +121,12 @@ class PostController extends Controller
             $post->category_id = $data['category_id'];
         }
         $post->update();
+
+        if (!empty($data['tags'])) {
+            $post->tags()->sync($data['tags']);
+        } else {
+            $post->tags()->detach();
+        }
         return redirect()->route('admin.posts.show', $post);
     }
 
@@ -119,6 +138,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        $post->tags()->detach();
         $post->delete();
         return redirect()
             ->route('admin.posts.user')

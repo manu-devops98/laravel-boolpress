@@ -10,6 +10,7 @@
                 @csrf
                 @method('POST')
                 <div class="mb-3">
+                  <h2>Scegli categoria</h2>
                   <select class="form-select" name="category_id">
                     <option selected>Select category</option>
                     @foreach ($categories as $category)
@@ -21,6 +22,19 @@
                       <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                   </select>
+                </div>
+                <div class="mb-3">
+
+                  @foreach ($tags as $tag)
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="{{ $tag->id}}" name="tags[]"
+                      {{ in_array($tag->id, old('tags', [])) ? 'checked' : ''}}
+                      >
+                      <label class="form-check-label" for="flexCheckDefault">
+                        {{ $tag->name }}
+                      </label>
+                    </div>
+                  @endforeach
                 </div>
                 <div class="mb-3">
                   <label for="title" class="form-label">Title</label>

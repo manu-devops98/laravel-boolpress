@@ -13,6 +13,7 @@ class PostController extends Controller
     public $validator = [
         'title' => 'required|max: 255',
         'content' => 'required',
+        'category_id' => 'exists:App\Model\Category,id'
     ];
 
     /**

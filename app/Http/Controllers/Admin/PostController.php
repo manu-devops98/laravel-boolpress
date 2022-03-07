@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use App\Model\Post;
 use App\Model\Category;
 use App\Model\Tag;
@@ -16,6 +17,7 @@ class PostController extends Controller
         'content' => 'required',
         'category_id' => 'exists:App\Model\Category,id',
         'tags.*' => 'nullable|exists:App\Model\Tag,id',
+        'image' => 'required'
     ];
 
     /**
@@ -59,9 +61,17 @@ class PostController extends Controller
         $data = $request->all();
         $data['user_id'] = Auth::user()->id;
         // dd($data);
+
+        //image
+        if (!empty($data['image'])) {
+            $img_path = Storage::put('uploads', $data['image']);
+            $data['image'] = $img_path;
+        }
+
         $post = new Post();
         $post->fill($data);
         $post->slug = $post->createSlug($data['title']);
+        $post->image = $data['image'];
         $post->user_id = $data['user_id'];
         $post->category_id = $data['category_id'];
         $post->save();
@@ -120,6 +130,11 @@ class PostController extends Controller
         if ($data['category_id'] != $post->category_id) {
             $post->category_id = $data['category_id'];
         }
+        if (!empty($data['image'])) {
+            $img_path = Storage::put('uploads', $data['image']);
+            $data['image'] = $img_path;
+        }
+        $post->image = $data['image'];
         $post->update();
 
         if (!empty($data['tags'])) {

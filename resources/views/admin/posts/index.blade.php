@@ -11,7 +11,7 @@
                     <thead>
                         <tr class="table-default border-dark">
                             <th scope="col">Title</th>
-                            <th scope="col">Authors</th>
+                            <th scope="col">Content</th>
                             <th scope="col">Tags</th>
                             <th scope="col">Slug</th>
                             <th colspan="3" scope="col">Actions</th>

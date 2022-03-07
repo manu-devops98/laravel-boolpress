@@ -6,7 +6,7 @@
         <h1>Aggiungi nuovo Post:</h1>
         <div class="row">
             <div class="col py-3">
-                <form action="{{ route('admin.posts.store') }}" method="post">
+                <form action="{{ route('admin.posts.store') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 @method('POST')
                 <div class="mb-3">
@@ -47,6 +47,13 @@
                     <label for="content" class="form-label">Content</label>
                     <textarea type="text" class="form-control" id="content" name="content" rows="3">{{ old('content') }}</textarea>
                     @error('content')
+                      <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="mb-3">
+                  <label for="image" class="form-label">Image</label>
+                  <input class="form-control" type="file" id="image" name='image' value="{{ old('image') }}">
+                  @error('image')
                       <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>

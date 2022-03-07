@@ -27,12 +27,14 @@
                         @endforeach
                     </ul>
                 </div>
+                @if (!empty($post->image))
                 <div class="col-4">
                     <div class="container">
                         <h2 class="fs-3 text-danger">Image:</h2>
                         <img class="img-fluid" src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->title}}">
                     </div>
                 </div>
+                @endif
             </div>
             {{-- <a class="btn btn-danger my-3" href="{{ route('admin.posts.index')}}">Home</a>
             <a href="{{ url()->previous()}}" type="submit" class="btn btn-primary">Previous</a> --}}

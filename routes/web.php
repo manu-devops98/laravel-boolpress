@@ -13,9 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('guest.welcome');
+// });
 
 Auth::routes();
 
@@ -26,10 +26,11 @@ Route::middleware('auth')
     ->group(function () {
         Route::get('/', 'HomeController@index')
             ->name('home');
-        // Route::get('/categories', 'CategoryController@index')->name('categories.index');
-        // Route::get('/categories/{category}', 'CategoryController@show')->name('categories.show');
-        // Route::get('/categories/{category}', 'CategoryController@show')->name('categories.show');
         Route::resource('categories', 'CategoryController');
         Route::get('/myposts', 'PostController@indexUser')->name('posts.user');
         Route::resource('posts', 'PostController');
     });
+
+Route::get('{any?}', function ($name = null) {
+    return view('guest.welcome');
+})->where('any', '.*');

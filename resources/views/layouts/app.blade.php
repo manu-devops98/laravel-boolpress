@@ -57,6 +57,9 @@
                                 <input type="submit" value="Logout" class="btn btn-default">
                             </form>
                         </li>
+                        <li>
+                            <a class="nav-link text-danger" href="{{ route('admin.posts.index')}}">Admin Area</a>
+                        </li>
                     @endguest
                 </ul>
             </div>

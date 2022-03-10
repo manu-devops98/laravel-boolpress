@@ -17,4 +17,17 @@ class PostController extends Controller
             'results' => ['posts' => $posts],
         ]);
     }
+
+    public function show($id)
+    {
+        $post = Post::find($id);
+
+        return response()->json([
+            'response' => true,
+            'count' => $post ? 1 : 0,
+            'results' => [
+                'data' => $post
+            ]
+        ]);
+    }
 }

@@ -1,7 +1,11 @@
 <template>
     <div class="container">
         <div class="row row-cols-1 row-cols-md-4 g-4">
-            <div class="col" v-for="(post, index) in posts" :key="index">
+            <div
+                class="col"
+                v-for="(post, index) in cards.posts"
+                :key="index + 'key'"
+            >
                 <div class="card">
                     <img
                         :src="
@@ -12,10 +16,15 @@
                     />
                     <div class="card-body">
                         <h5 class="card-title">{{ post.title }}</h5>
-                        <p class="card-text">
+                        <p class="card-text fs-6 text-dark">
                             {{ post.content }}
                         </p>
                     </div>
+                    <router-link
+                        class="btn btn-primary w-50 mx-auto mb-4"
+                        :to="{ name: 'post', params: { id: post.id } }"
+                        >View Post</router-link
+                    >
                 </div>
             </div>
         </div>
@@ -24,14 +33,14 @@
                 <ul class="list-unstyled">
                     <li>
                         <button
-                            v-if="prevPage"
+                            v-if="cards.prevPage"
                             @click="changePage('prevPage')"
                             class="btn btn-primary"
                         >
                             Prev
                         </button>
                         <button
-                            v-if="nextPage"
+                            v-if="cards.nextPage"
                             @click="changePage('nextPage')"
                             class="btn btn-primary"
                         >
@@ -47,30 +56,11 @@
 <script>
 export default {
     name: "Main",
-    data() {
-        return {
-            posts: [],
-            nextPage: null,
-            prevPage: null,
-        };
-    },
+    props: ["cards"],
     methods: {
         changePage(change) {
-            let url = this[change];
-            if (url) {
-                this.getPosts(url);
-            }
+            this.$emit("changePage", change);
         },
-        getPosts(url) {
-            axios.get(url).then((result) => {
-                this.posts = result.data.results.posts.data;
-                this.nextPage = result.data.results.posts.next_page_url;
-                this.prevPage = result.data.results.posts.prev_page_url;
-            });
-        },
-    },
-    created() {
-        this.getPosts("http://127.0.0.1:8000/api/posts");
     },
 };
 </script>

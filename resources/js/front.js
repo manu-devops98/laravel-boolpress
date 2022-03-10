@@ -33,6 +33,7 @@ const router = new VueRouter({
         {
             path: '/posts/:id',
             name: 'post',
+            props: true,
             component: Post
         },
         {

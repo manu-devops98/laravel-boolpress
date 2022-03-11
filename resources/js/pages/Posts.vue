@@ -28,11 +28,15 @@ export default {
     },
     methods: {
         getPosts(url) {
-            axios.get(url).then((result) => {
-                this.cards.posts = result.data.results.posts.data;
-                this.cards.nextPage = result.data.results.posts.next_page_url;
-                this.cards.prevPage = result.data.results.posts.prev_page_url;
-            });
+            axios
+                .get(url, { headers: { Authorization: "Bearer abc123" } })
+                .then((result) => {
+                    this.cards.posts = result.data.results.posts.data;
+                    this.cards.nextPage =
+                        result.data.results.posts.next_page_url;
+                    this.cards.prevPage =
+                        result.data.results.posts.prev_page_url;
+                });
         },
         changePage(change) {
             let url = this.cards[change];

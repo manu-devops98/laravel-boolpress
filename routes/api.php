@@ -20,4 +20,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('/posts', 'Api\PostController@index')->middleware('api.auth');
 Route::get('/posts/{id}', 'Api\PostController@show');
-// Route::post('/contacts', 'Api\ContactController@sendMessage')->middleware('api.auth');
+Route::post('/contacts', 'Api\ContactController@sendMessage')->middleware('api.auth');

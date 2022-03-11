@@ -53,6 +53,10 @@ export default {
                     label: "About us",
                     href: "about",
                 },
+                {
+                    label: "Contacts",
+                    href: "contacts",
+                },
             ],
         };
     },

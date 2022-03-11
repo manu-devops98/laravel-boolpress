@@ -12,6 +12,7 @@ import Home from './pages/Home.vue';
 import About from './pages/About.vue';
 import Post from './pages/Post.vue';
 import Posts from './pages/Posts.vue';
+import Contacts from './pages/Contacts.vue';
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
@@ -40,6 +41,11 @@ const router = new VueRouter({
             path: '/posts',
             name: 'posts',
             component: Posts
+        },
+        {
+            path: '/contacts',
+            name: 'contacts',
+            component: Contacts
         },
     ]
 });

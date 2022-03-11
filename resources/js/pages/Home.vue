@@ -5,20 +5,24 @@
                 <h1>Home-Page</h1>
             </div>
         </div>
-        <Main :cards="cards" @changePage="changePage($event)"></Main>
+        <Loading v-if="loading" />
+        <Main :cards="cards" @changePage="changePage($event)" v-else></Main>
     </div>
 </template>
 
 <script>
 import axios from "axios";
 import Main from "../components/Main.vue";
+import Loading from "../components/Loading.vue";
 export default {
     name: "Home",
     components: {
         Main,
+        Loading,
     },
     data() {
         return {
+            loading: false,
             cards: {
                 posts: null,
                 nextPage: null,
@@ -28,16 +32,20 @@ export default {
     },
     methods: {
         getPosts(url) {
-            axios
-                .get(url, { headers: { Authorization: "Bearer abc123" } })
-                .then((result) => {
-                    this.cards.posts = result.data.results.posts.data;
-                    this.cards.nextPage =
-                        result.data.results.posts.next_page_url;
-                    this.cards.prevPage =
-                        result.data.results.posts.prev_page_url;
-                })
-                .catch((error) => console.log(error));
+            this.loading = true;
+            setTimeout(() => {
+                axios
+                    .get(url, { headers: { Authorization: "Bearer abc123" } })
+                    .then((result) => {
+                        this.cards.posts = result.data.results.posts.data;
+                        this.cards.nextPage =
+                            result.data.results.posts.next_page_url;
+                        this.cards.prevPage =
+                            result.data.results.posts.prev_page_url;
+                        this.loading = false;
+                    })
+                    .catch((error) => console.log(error));
+            }, 2500);
         },
         changePage(change) {
             let url = this.cards[change];

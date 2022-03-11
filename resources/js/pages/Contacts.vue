@@ -100,7 +100,7 @@ export default {
             axios
                 .post(url, formData, { headers })
                 .then((result) => {
-                    console.log(result);
+                    console.log(result.data, result.status);
                 })
                 .catch((error) => console.log(error));
         },
